@@ -1,7 +1,6 @@
 version: '3.8'
 services:
   api:
-    #image: meeting-rooms-booking-backend
     build:
       dockerfile: Dockerfile
       context: .
@@ -25,3 +24,15 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - '80:80'
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 0
+    restart: unless-stopped
